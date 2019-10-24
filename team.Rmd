@@ -3,26 +3,51 @@ title: "team.Rmd"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+#### Owner's GitHub username: jebirkner
+#### Partner's GitHub username: mblount2
+#### Repo name: ds202_lab4
+#### Due date: Thursday Oct. 24 by 10 pm. 
+
+
+```{r}
+library(tidyverse)
+library(readxl)
+defense <- read_excel('cyclonesFootball2018.xlsx', sheet='Defensive')
+str(defense)
+offense <- read_excel('cyclonesFootball2018.xlsx', sheet='Offensive')
+bio <- read_excel('cyclonesFootball2018.xlsx', sheet='Biography')
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+factor(defense$Name)
+factor(defense$Opponent_Opponent)
+factor(offense$Name)
+factor(offense$Opponent_Opponent)
+factor(bio$Name)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+defense = mutate_at(defense, , .funs = as.numeric, .vars = c("Tackles_Solo", "Tackles_ASST","Tackles_TFL", "Tackles_Sack", "Turnover_FF", "Turnover_FR", "Turnover_INT", "Pass_QBH", "Pass_PB"))
+str(defense)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+offense = mutate_at(offense, .funs = as.numeric, .vars = names(offense[c(3:12)]))
+str(offense)
+```
+
+```{r}
+bio = mutate_at(bio, .funs = as.numeric, .vars = c("Weight"))
+str(bio)
+```
+
+
+3. Separate the `Height` column into two columns. Make sure the newly created columns are numeric. Then create one column that represents `Height` (Hint: Use a unit that works well). Drop any irrelavant columns from this process.
+
+```{r}
+bio %>%
+  separate(Height, "-")
+```
+
+
+4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
