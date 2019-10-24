@@ -27,27 +27,39 @@ factor(bio$Name)
 ```
 
 ```{r}
-defense = mutate_at(defense, , .funs = as.numeric, .vars = c("Tackles_Solo", "Tackles_ASST","Tackles_TFL", "Tackles_Sack", "Turnover_FF", "Turnover_FR", "Turnover_INT", "Pass_QBH", "Pass_PB"))
-str(defense)
+defClean = mutate_at(defense, , .funs = as.numeric, .vars = c("Tackles_Solo", "Tackles_ASST","Tackles_TFL", "Tackles_Sack", "Turnover_FF", "Turnover_FR", "Turnover_INT", "Pass_QBH", "Pass_PB"))
 ```
 
 ```{r}
-offense = mutate_at(offense, .funs = as.numeric, .vars = names(offense[c(3:12)]))
-str(offense)
+offClean = mutate_at(offense, .funs = as.numeric, .vars = names(offense[c(3:12)]))
 ```
 
 ```{r}
 bio = mutate_at(bio, .funs = as.numeric, .vars = c("Weight"))
-str(bio)
 ```
 
 
 3. Separate the `Height` column into two columns. Make sure the newly created columns are numeric. Then create one column that represents `Height` (Hint: Use a unit that works well). Drop any irrelavant columns from this process.
 
 ```{r}
-bio %>%
-  separate(Height, "-")
+bioClean = bio %>%
+  separate(Height, into = c("Feet", "Inches"))
+bioClean$Feet = as.numeric(bioClean$Feet)
+bioClean$Inches = as.numeric(bioClean$Inches)
 ```
 
 
 4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
+
+```{r}
+(str(defClean))
+```
+
+```{r}
+(str(offClean))
+```
+
+```{r}
+(str(bioClean))
+```
+
