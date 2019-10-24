@@ -46,7 +46,12 @@ bioClean = bio %>%
   separate(Height, into = c("Feet", "Inches"))
 bioClean$Feet = as.numeric(bioClean$Feet)
 bioClean$Inches = as.numeric(bioClean$Inches)
+bioClean$Feet = bioClean$Feet * 12
+bioClean = mutate(bioClean, Height = bioClean$Feet + bioClean$Inches)
+bioClean = select(bioClean, "Name", "Position", "Weight", "Class",  "Hometown", "Highschool", "Height")
+names(bioClean)
 ```
+
 
 
 4. By cleaning the three data frames in R, at the end of this step you should have the following three clean data frames: `defClean`, `offClean`, and `bioClean`. Print the structures of these data frames. **Make sure your data types make sense for each variable.**
