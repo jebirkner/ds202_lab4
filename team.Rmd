@@ -68,3 +68,30 @@ names(bioClean)
 (str(bioClean))
 ```
 
+1. Find out where the offensive players are from by joining the offensive data and player biography data appropriately.
+
+```{r}
+offbio = left_join(offClean, bioClean, by = "Name")
+offbio %>% select("Name", "Hometown") %>% unique()
+```
+
+This is a list of all the offensive players and where they are from.
+
+2. Is there a relationship between the weight of a player and the receiving yards (`Receiving_YDS`)?
+
+```{r}
+df1 = inner_join(offClean, bioClean, by = "Name")
+ggplot(df1, aes(x = `Weight`, y = `Receiving_YDS`)) + geom_point() + labs(title = "Relationship between Weight and Receiving Yards", x='Weight', y='Receiving Yards') + geom_smooth()
+```
+
+Based on this graph there is no correlation between weight and receiving yards.
+
+Question: Is there a correlation between Height and solo tackles.
+
+```{r}
+def_bio = inner_join(defClean, bioClean, by = "Name")
+ggplot(def_bio, aes(x = `Height`, y = `Tackles_Solo`)) + geom_point() + geom_smooth()
+```
+
+Answer: Based on the scattler plot above, there is no meaningful correlation between number of solo tackles and player Height.
+
