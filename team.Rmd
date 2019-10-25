@@ -23,11 +23,11 @@ bio <- read_excel('cyclonesFootball2018.xlsx', sheet='Biography')
 
 1.
 ```{r}
-factor(defense$Name)
-factor(defense$Opponent_Opponent)
-factor(offense$Name)
-factor(offense$Opponent_Opponent)
-factor(bio$Name)
+defense$Name = factor(defense$Name)
+defense$Opponent_Opponent = factor(defense$Opponent_Opponent)
+offense$Name = factor(offense$Name)
+offense$Opponent_Opponent = factor(offense$Opponent_Opponent)
+bio$Name = factor(bio$Name)
 ```
 
 2.
