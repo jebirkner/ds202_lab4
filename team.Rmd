@@ -77,8 +77,6 @@ offbio %>% select("Name", "Hometown") %>% unique()
 
 This is a list of all the offensive players and where they are from.
 
-2. Is there a relationship between the weight of a player and the receiving yards (`Receiving_YDS`)?
-
 ```{r}
 df1 = inner_join(offClean, bioClean, by = "Name")
 ggplot(df1, aes(x = `Weight`, y = `Receiving_YDS`)) + geom_point() + labs(title = "Relationship between Weight and Receiving Yards", x='Weight', y='Receiving Yards') + geom_smooth()
